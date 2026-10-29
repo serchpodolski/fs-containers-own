@@ -4,11 +4,17 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  port: 5173,
   server: {
+    allowedHosts: ['frontend', 'localhost', '127.0.0.1'],
+    watch: {
+      usePolling: true, // Crucial for Docker to detect file changes on Windows/macOS
+    },
     proxy: {
       '/api': {
-        target: 'http://localhost:3002',
+        target: 'http://back-end:3000',
         changeOrigin: true,
+        secure: false
       },
     }
   },

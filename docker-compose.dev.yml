@@ -40,5 +40,16 @@ services:
       - mongo_data:/data/db
     container_name: mongo-dev
     
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - frontend
+      - backend
+    container_name: todo-reverse-proxy-dev
+  
 volumes:
   mongo_data:

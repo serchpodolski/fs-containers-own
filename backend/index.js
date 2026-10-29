@@ -97,6 +97,7 @@ app.put('/api/persons/:id', (request, response, next) => {
           .then(updatedPerson => {
             response.json(updatedPerson)
           })
+          .catch(error => next(error))
       } else {
         response.status(404).end()
       }
