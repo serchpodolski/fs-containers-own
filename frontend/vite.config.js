@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     allowedHosts: ['frontend', 'localhost', '127.0.0.1'],
     watch: {
-      usePolling: true, // Crucial for Docker to detect file changes on Windows/macOS
+      usePolling: true,
     },
     proxy: {
       '/api': {
