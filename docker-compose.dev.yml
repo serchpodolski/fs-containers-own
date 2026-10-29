@@ -1,0 +1,44 @@
+services:
+  frontend:
+    image: front-end-dev
+    build:
+      context: ./frontend
+      dockerfile: dev.Dockerfile
+    ports:
+      - 5173:5173
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    container_name: front-end
+
+  backend:
+    image: back-end-dev
+    build:
+      context: ./backend
+      dockerfile: dev.Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - PORT=3000
+      - MONGODB_URI=${MONGODB_URI}
+      - NODE_ENV=development
+    depends_on:
+      - mongo
+    container_name: back-end
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+    volumes:
+      - mongo_data:/data/db
+    container_name: mongo-dev
+    
+volumes:
+  mongo_data:
