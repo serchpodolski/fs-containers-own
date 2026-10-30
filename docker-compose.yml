@@ -1,0 +1,30 @@
+services:
+  frontend:
+    image: front-end
+    build:
+      context: ./frontend
+      args:
+        VITE_BACKEND_URL: /api
+    expose:
+      - 80
+
+  backend:
+    image: back-end
+    build:
+      context: ./backend
+    ports:
+      - 3000:3000
+    environment:
+      - PORT=3000
+      - MONGODB_URI=${MONGODB_PROD_URI}
+      - NODE_ENV=development
+    
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - frontend
+      - backend  

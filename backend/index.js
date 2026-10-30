@@ -25,7 +25,7 @@ const getInfo = async () => {
 }
 
 // Added middleware error detection to all routes
-app.get('/info', async (request, response, next) => {
+app.get('/api/info', async (request, response, next) => {
   try {
     const info = await getInfo()
     response.send(info)
