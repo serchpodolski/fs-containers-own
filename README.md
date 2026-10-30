@@ -2,4 +2,4 @@
 
 ## Setup
 
-This repository is a containerized version of the development environment of the phone application. 
+This repository is a containerized version of the development and production environments of the phone application. 
